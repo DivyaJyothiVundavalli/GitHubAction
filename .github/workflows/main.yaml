@@ -33,3 +33,41 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+  build-api:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Build API
+        run: |
+          echo "Building API..."
+          sleep 5
+
+  test:
+    runs-on: ubuntu-latest
+    needs: build-api
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Run Tests
+        run: |
+          echo "Running tests..."
+          sleep 3
+
+  build-db:
+    runs-on: ubuntu-latest
+    needs: build-api
+    steps:
+      - name: Setup Database
+        run: |
+          echo "Building Database..."
+          
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build-db
+    steps:
+      - name: Deploy Application
+        run: |
+          echo "Deploying application..."
+          sleep 3
